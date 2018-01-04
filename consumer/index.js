@@ -1,13 +1,13 @@
+const log = require('@collectai/node-logger')('nats-example:consumer')
+
 const config = require('./config')
 const utils = require('./utils')
 const nats = require('./nats')
 
 const { onMessageReceived } = require('./handlers')
 
-// const durableSub =
-
 async function start() {
-  console.log('Consuming events')
+  log.debug('Consuming events')
   const natsConnection = nats(config)
   natsConnection.listen(onMessageReceived)
 

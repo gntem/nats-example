@@ -1,5 +1,4 @@
-const log = require('@collectai/node-logger')
-const colors = require('colors');
+const log = require('@collectai/node-logger')('nats-example:consumer:nats')
 const bigInt = require('big-integer');
 const nats = require('node-nats-streaming');
 
@@ -24,11 +23,11 @@ function listen(onMessageReceived) {
   })
 
   client.on('error', (error) => {
-    console.log('natsClient error, %s', error.toString())
+    log.error('natsClient error, %s', error.toString())
   })
 
   client.on('reconnecting', () => {
-    console.log('attempting to reconnect to cluster')
+    log.debug('attempting to reconnect to cluster')
   })
 
   client.on('reconnect', () => {
@@ -76,11 +75,11 @@ function parseSubscriptionOptions(client, subscriptionOptions) {
 
 function close() {
   if (durableSub === undefined) {
-    console.log('Not yet subscribed, nothing to close')
+    log.debug('Not yet subscribed, nothing to close')
     return false
   }
   if (durableSub.isClosed() === true) {
-    console.log('Subscription already closed')
+    log.debug('Subscription already closed')
     return false
   }
   durableSub.close()

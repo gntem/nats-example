@@ -1,5 +1,7 @@
+const log = require('@collectai/node-logger')('nats-example:publisher')
+
 async function start() {
-  console.log('Publishing events')
+  log.debug('Publishing events')
 }
 
 module.exports = {
