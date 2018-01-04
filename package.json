@@ -1,0 +1,18 @@
+{
+  "name": "nats-example",
+  "version": "1.0.0",
+  "description": "Example project for event consumption",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nats": "docker pull nats-streaming && docker run -p 4222:4222 -d nats-streaming -cid cai",
+    "dev": "node index.js"
+  },
+  "author": "collectAI",
+  "license": "ISC",
+  "dependencies": {
+    "@collectai/node-logger": "^0.1.6",
+    "big-integer": "^1.6.26",
+    "node-nats-streaming": "0.0.26"
+  }
+}
