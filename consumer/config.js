@@ -1,3 +1,9 @@
+/* REVISIT:
+  *  nats subscription options are set by function calls
+  *  subscriptionOptions keys are function names and
+  *  values are arguments
+  */
+
 module.exports = {
   subject: 'examples.foo',
   connectionOptions: {
@@ -9,10 +15,10 @@ module.exports = {
     url: 'nats://localhost:4222',
   },
   subscriptionOptions: {
-    setDeliverAllAvailable: true,
-    setMaxInFlight: 1,
-    setAckWait: 5000,
-    setDurableName: 'durable-example',
-    setManualAckMode: true,
+    setDeliverAllAvailable: [true],
+    setMaxInFlight: [1],
+    setAckWait: [5000],
+    setDurableName: ['durable-example'],
+    setManualAckMode: [true],
   }
 }

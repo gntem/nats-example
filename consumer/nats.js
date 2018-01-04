@@ -61,8 +61,7 @@ function parseSubscriptionOptions(client, subscriptionOptions) {
   const opts = client.subscriptionOptions()
   Object.keys(subscriptionOptions).forEach((option) => {
     const fn = opts[option];
-    const argValue = subscriptionOptions[option]
-    const args = typeof argValue === 'array' ? argValue : [argValue]
+    const args = subscriptionOptions[option]
     if (typeof fn !== 'function') {
       console.debug('Invalid subscription option: %s', option)
       return
