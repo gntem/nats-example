@@ -1,3 +1,4 @@
+const log = require('@collectai/node-logger')('nats-example:consumer:handlers')
 const {
   isDuplicated,
   isNextEvent
@@ -10,17 +11,11 @@ function onMessageReceived(msg) {
   log.info('Processing message with sequence %s', sequence)
   log.trace('Message[%s]: %o', sequence, data)
 
-  if (isDuplicated(msg)) {
-    log.warning('Duplicated message with id: %id, not processing', data.eventId)
-    return
-  }
-  if (!isNextEvent(msg)) {
-    // REVISIT: request event that should come next on demand using setStartAtSequence to reduce waiting time
-    log.warning('Unordered event, stalling message')
-    return
-  }
+  if (isDuplicated(msg)) return;
+  if (!isNextEvent(msg)) return;
 
   // Add business logic here
+  log.debug('Event processed succesfully')
   msg.ack()
   return
 };

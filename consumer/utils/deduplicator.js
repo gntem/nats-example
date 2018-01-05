@@ -1,13 +1,23 @@
+const log = require('@collectai/node-logger')('nats-example:consumer:orderer')
 const processedEventIds = []
 
 function isDuplicated(msg) {
   const data = msg.getData();
   const payload = JSON.parse(data)
+
   const {
     eventId
-  } = payload
+  } = payload;
 
-  return processedEventIds.includes(eventId)
-}
+  log.trace('Validating event uniqueness for eventId: %s', eventId);
+  const result = processedEventIds.includes(eventId)
+  if (result) {
+    log.warning('Detected duplicated eventId: %s', eventId);
+  }
 
-module.exports = isDuplicated
+  return result;
+};
+
+module.exports = {
+  isDuplicated,
+};

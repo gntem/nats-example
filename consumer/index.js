@@ -7,11 +7,12 @@ const nats = require('./nats')
 const { onMessageReceived } = require('./handlers')
 
 async function start() {
-  log.debug('Consuming events')
+
   const natsConnection = nats(config)
   natsConnection.listen(onMessageReceived)
+  log.info('Consuming events...')
 
 }
 module.exports = {
-  start
-}
+  start,
+};
