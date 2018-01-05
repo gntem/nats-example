@@ -1,0 +1,7 @@
+# NATS events consumer
+
+*Message acknowledgement*: By default, NATS client acknowledges every message received. It is recommended set it to manual acknowledgement mode to have more control over the process. We can call `client.ack()` whenever we process the message successfully. If the message is for any reason invalid or it should not be processed at the moment, we don't acknowledge it and it will be kept in the server for future redelivery. If we want to ignore/skip a message we can immediately acknowledge without doing anything and it will not be delivered again.
+
+*Rate limiting per subscriber*: Subscriptions may specify a MaxInFlight option that designates the maximum number of outstanding acknowledgements (messages that have been delivered but not acknowledged) that NATS Streaming will allow for a given subscription. When this limit is reached, NATS Streaming will suspend delivery of messages to this subscription until the number of unacknowledged messages falls below the specified limit.
+
+*Durable subscriptions*: Subscriptions may also specify a “durable name” which will survive client restarts. Durable subscriptions cause the server to track the last acknowledged message sequence number for a client and durable name. When the client restarts/resubscribes, and uses the same client ID and durable name, the server will resume delivery beginning with the earliest unacknowledged message for this durable subscription.
